@@ -5,10 +5,13 @@
 #ifndef PR02_RENDERER_H
 #define PR02_RENDERER_H
 
-
-class Renderer
+namespace PAG
 {
-};
+    class Renderer
+    {
+    };
+}
+
 
 
 #endif //PR02_RENDERER_H
