@@ -10,7 +10,9 @@ find_package(glfw3 CONFIG REQUIRED)
 file( GLOB MY_FILES *.cpp )
 file( GLOB GLAD_FILES GLAD/src/*.c )
 
-add_executable(${PROJECT_NAME} ${MY_FILES} ${GLAD_FILES})
+add_executable(${PROJECT_NAME} ${MY_FILES} ${GLAD_FILES}
+        Renderer.cpp
+        Renderer.h)
 
 target_include_directories( ${PROJECT_NAME} PUBLIC GLAD/include )
 
