@@ -1,3 +1,11 @@
+/**
+* @file Renderer.h
+ * @author Juan Carlos Enríquez Muñoz
+ *
+ * @date 22/09/2026
+ *
+ * @brief Declaración de la clase Renderer
+ */
 #ifndef PR02_RENDERER_H
 #define PR02_RENDERER_H
 
