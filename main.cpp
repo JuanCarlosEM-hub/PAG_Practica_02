@@ -104,7 +104,7 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
         // Sin comprobar, modificamos el elemento del array
         // Para que el color se vea distinto, multiplicamos la posicion del elemento por el sentido de rotación. De este modo algunos elementos suman y otros restan
         // Aclarar, que aunque algunos sumen y otros resten, siempre suman o restan los mismo respectivamente el eje de la rueda
-        colorActual[i] = valor_sum_nuevo_color * i *yoffset;
+        colorActual[i] += valor_sum_nuevo_color * i *yoffset;
 
         //Comprobamos si se sale de rango por el límite superior
         if ( colorActual[i] > 1.0 ) {
