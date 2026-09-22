@@ -12,6 +12,11 @@ namespace PAG {
 
     Renderer* Renderer::instance = nullptr;
 
+    /**
+     * @brief Constructor por defecto
+     */
+    Renderer::Renderer()= default;
+
     Renderer& Renderer::getInstance() {
         if (!Renderer::instance) {//Inicialización perezosa
             instance = new Renderer();
