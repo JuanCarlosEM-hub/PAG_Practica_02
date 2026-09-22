@@ -18,7 +18,7 @@ namespace PAG
     class Renderer
     {
         private:
-            static Renderer* instance;
+            static Renderer* instance; ///< Puntero al objeto
             // El constructor es privado para evitar que se cree el objeto desde otros módulos
             Renderer();
         public:
