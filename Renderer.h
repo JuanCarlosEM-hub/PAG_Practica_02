@@ -11,6 +11,10 @@
 
 namespace PAG
 {
+    /**
+    * @brief Esta clase coordina el renderizado de las escenas OpenGL. Se implementa
+    * aplicando el patrón de diseño Singleton. Está pensada para que las funciones callback hagan llamadas a sus métodos
+     */
     class Renderer
     {
         private:
