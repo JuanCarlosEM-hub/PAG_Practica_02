@@ -17,6 +17,11 @@ namespace PAG {
      */
     Renderer::Renderer()= default;
 
+    /**
+     * @brief Destructor por defecto
+     */
+    Renderer::~Renderer() = default;
+
     Renderer& Renderer::getInstance() {
         if (!Renderer::instance) {//Inicialización perezosa
             instance = new Renderer();
