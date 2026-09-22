@@ -8,13 +8,14 @@
  */
 
 #include "Renderer.h"
+namespace PAG {
 
-//Inicialización del atributo
-PAG::Renderer* PAG::Renderer::instance = nullptr;
+    Renderer* Renderer::instance = nullptr;
 
-PAG::Renderer& PAG::Renderer::getInstance() {
-    if (!PAG::Renderer::instance) {//Inicialización perezosa
-        instance = new PAG::Renderer();
+    Renderer& Renderer::getInstance() {
+        if (!Renderer::instance) {//Inicialización perezosa
+            instance = new Renderer();
+        }
+        return *instance;
     }
-    return *instance;
 }
