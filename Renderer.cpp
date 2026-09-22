@@ -8,6 +8,8 @@
  */
 
 #include "Renderer.h"
+#include <glad/glad.h>
+
 namespace PAG {
 
     Renderer* Renderer::instance = nullptr;
@@ -31,5 +33,12 @@ namespace PAG {
             instance = new Renderer();
         }
         return *instance;
+    }
+
+    /**
+     * @brief Hacer el refresco de la escena
+     */
+    void Renderer::refrescar() {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // refrescamos el buffer
     }
 }
