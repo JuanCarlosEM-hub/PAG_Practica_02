@@ -4,6 +4,8 @@
 #include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Renderer.h"
+
 // - Esta función callback será llamada cuando GLFW produzca algún error
 void error_callback ( int errno, const char* desc )
 {
@@ -15,11 +17,9 @@ void error_callback ( int errno, const char* desc )
 // OpenGL deba ser redibujada.
 void window_refresh_callback ( GLFWwindow *window )
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // - GLFW usa un doble buffer para que no haya parpadeo. Esta orden
-    // intercambia el buffer back (que se ha estado dibujando) por el
-    // que se mostraba hasta ahora front. Debe ser la última orden de
-    // este callback
+    //Llamamos a la instancia y refrescamos
+    PAG::Renderer::getInstance().refrescar();
+
     glfwSwapBuffers ( window );
     std::cout << "Refresh callback called" << std::endl;
 }
