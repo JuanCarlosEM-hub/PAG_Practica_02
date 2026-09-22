@@ -25,6 +25,8 @@ namespace PAG
             ~Renderer();
 
             static Renderer& getInstance();
+
+            void refrescar();
     };
 }
 
