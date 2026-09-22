@@ -22,6 +22,8 @@ namespace PAG
             // El constructor es privado para evitar que se cree el objeto desde otros módulos
             Renderer();
         public:
+            ~Renderer();
+
             static Renderer& getInstance();
     };
 }
