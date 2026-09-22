@@ -22,6 +22,10 @@ namespace PAG {
      */
     Renderer::~Renderer() = default;
 
+    /**
+     * @brief Consulta del objeto único de la clase
+     * @return Dirección de memoria del objeto
+     */
     Renderer& Renderer::getInstance() {
         if (!Renderer::instance) {//Inicialización perezosa
             instance = new Renderer();
