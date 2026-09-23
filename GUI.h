@@ -5,9 +5,10 @@
 #ifndef PR02_GUI_H
 #define PR02_GUI_H
 
-
-class GUI {
-};
+namespace PAG {
+    class GUI {
+    };
+}
 
 
 #endif //PR02_GUI_H
