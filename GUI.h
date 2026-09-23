@@ -7,6 +7,9 @@
 
 namespace PAG {
     class GUI {
+        private:
+            static GUI* instance; ///< Instancia Única
+            GUI();
     };
 }
 
