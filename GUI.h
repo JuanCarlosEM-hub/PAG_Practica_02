@@ -19,6 +19,9 @@ namespace PAG {
         private:
             static GUI* instance; ///< Instancia Única
             GUI();
+
+        public:
+            virtual ~GUI();
     };
 }
 
