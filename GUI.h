@@ -2,9 +2,6 @@
 // Created by Juank on 23/09/2026.
 //
 
-#include <ImGui/imgui.h>
-#include <ImGui/imgui_impl_glfw.h>
-#include <ImGui/imgui_impl_opengl3.h>
 #include <imgui.h>
 #include <../backends/imgui_impl_glfw.h>
 #include <../backends/imgui_impl_opengl3.h>
@@ -22,7 +19,7 @@ namespace PAG {
 
         public:
             virtual ~GUI();
-            static GUI* getInstance();
+            static GUI& getInstance();
     };
 }
 

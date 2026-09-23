@@ -9,4 +9,11 @@ namespace PAG {
 
     GUI::GUI() {}
     GUI::~GUI() {}
+
+    GUI& GUI::getInstance() {
+        if (!instance) {
+            instance = new GUI(); //Inicialización perezosa
+        }
+        return *instance;
+    }
 }
