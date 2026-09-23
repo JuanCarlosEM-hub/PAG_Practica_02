@@ -5,5 +5,6 @@
 #include "GUI.h"
 
 namespace PAG {
+    GUI* GUI::instance = nullptr; //Inicializamos puntero
 
 }
