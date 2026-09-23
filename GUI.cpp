@@ -7,4 +7,6 @@
 namespace PAG {
     GUI* GUI::instance = nullptr; //Inicializamos puntero
 
+    GUI::GUI() {}
+    GUI::~GUI() {}
 }
