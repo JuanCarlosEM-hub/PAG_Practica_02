@@ -22,6 +22,7 @@ namespace PAG {
 
         public:
             virtual ~GUI();
+            static GUI* getInstance();
     };
 }
 
