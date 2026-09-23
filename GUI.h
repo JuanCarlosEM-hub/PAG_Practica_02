@@ -20,6 +20,11 @@ namespace PAG {
         public:
             virtual ~GUI();
             static GUI& getInstance();
+
+            // Métodos principales encapsulados
+            void inicializar(GLFWwindow* window);
+            void renderer();
+            void finalizar();
     };
 }
 
