@@ -13,7 +13,9 @@ file( GLOB IMGUI_FILES imgui/src/*.cpp )
 
 add_executable(${PROJECT_NAME} ${MY_FILES} ${GLAD_FILES} ${IMGUI_FILES}
         Renderer.cpp
-        Renderer.h)
+        Renderer.h
+        GUI.cpp
+        GUI.h)
 
 target_include_directories( ${PROJECT_NAME} PUBLIC GLAD/include imgui/include )
 
