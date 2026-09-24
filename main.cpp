@@ -33,6 +33,7 @@ void window_refresh_callback ( GLFWwindow *window )
 void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
 {
     //glViewport ( 0, 0, width, height );
+    PAG::Renderer::getInstance().establecerViewport(0,0,width,height);
     std::cout << "Resize callback called" << std::endl;
 }
 
@@ -76,22 +77,7 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
     // Arreglo para guardar los componentes (R, G, B, A)
     float colorActual[4];
 
-    // Consulta a OpenGL el color de borrado actual
-    glGetFloatv(GL_COLOR_CLEAR_VALUE, colorActual);
-
-    /*
-     * Esta función es correcta, no obstante, como cambiamos todos los tonos por igual solo se ve un cambio de grises
-     * Vamos a "complicar" un poco más el ejercico buscando aleaoriedad en los colores y teniendo en cuenta el sentido de giro
-    for ( int i = 0; i < 3; ++i)
-    {
-        if (colorActual[i] >=0.9)
-        {
-            colorActual[i] =0.0;
-        }else
-        {
-            colorActual[i] +=0.1;
-        }
-    }*/
+    PAG::Renderer::getInstance().obtenerColor(colorActual);
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -122,7 +108,9 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
         }
     }
     // Aplicamos en el fondo
-    glClearColor(colorActual[0], colorActual[1], colorActual[2], colorActual[3]);
+    PAG::Renderer::getInstance().establecerColor(
+        colorActual[0], colorActual[1], colorActual[2], colorActual[3]
+    );
 
 }
 

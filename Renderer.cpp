@@ -54,11 +54,11 @@ namespace PAG {
         glViewport(x, y, width, height);
     }
 
-    void Renderer::establecerColorBorrado(float r, float g, float b, float a) {
+    void Renderer::establecerColor(float r, float g, float b, float a) {
         glClearColor(r, g, b, a);
     }
 
-    void Renderer::obtenerColorBorrado(float colorActual[4]) {
+    void Renderer::obtenerColor(float colorActual[4]) {
         glGetFloatv(GL_COLOR_CLEAR_VALUE, colorActual);
     }
 

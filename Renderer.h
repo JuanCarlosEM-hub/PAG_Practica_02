@@ -31,8 +31,8 @@ namespace PAG
             void establecerViewport(int x, int y, int width, int height);
 
             // Gestión del color de fondo (clear color)
-            void establecerColorBorrado(float r, float g, float b, float a = 1.0f);
-            void obtenerColorBorrado(float colorActual[4]);
+            void establecerColor(float r, float g, float b, float a = 1.0f);
+            void obtenerColor(float colorActual[4]);
 
             void mostrarInformacionGL();
 
