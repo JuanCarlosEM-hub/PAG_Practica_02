@@ -8,6 +8,8 @@
  */
 
 #include "Renderer.h"
+
+#include <iostream>
 #include <glad/glad.h>
 
 namespace PAG {
@@ -58,6 +60,13 @@ namespace PAG {
 
     void Renderer::obtenerColorBorrado(float colorActual[4]) {
         glGetFloatv(GL_COLOR_CLEAR_VALUE, colorActual);
+    }
+
+    void Renderer::mostrarInformacionGL() {
+        std::cout << "Renderizador: " << glGetString(GL_RENDERER) << std::endl
+                  << "Proveedor:    " << glGetString(GL_VENDOR) << std::endl
+                  << "Versión GL:   " << glGetString(GL_VERSION) << std::endl
+                  << "GLSL:         " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     }
 
 }
