@@ -21,6 +21,9 @@ void window_refresh_callback ( GLFWwindow *window )
     //Llamamos a la instancia y refrescamos
     PAG::Renderer::getInstance().refrescar();
 
+    //Dibujamos la interfaz de usuario
+    PAG::GUI::getInstance().render();
+
     glfwSwapBuffers ( window );
     std::cout << "Refresh callback called" << std::endl;
 }
@@ -56,6 +59,9 @@ void mouse_button_callback ( GLFWwindow *window, int button, int action, int mod
     {
         std::cout << "Soltado el botón: " << button << std::endl;
     }
+
+    // Notificamo del evento a GUI
+    PAG::GUI::getInstance().procesarBotonRaton(button, action);
 }
 
 // - Esta función callback será llamada cada vez que se mueva la rueda
