@@ -186,8 +186,11 @@ int main()
     // - Ciclo de eventos principal de la aplicación (se unifica en un único bucle)
     while ( !glfwWindowShouldClose ( window ) )
     {
-        // - Borra los buffers (color y profundidad)
-        glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        // Limpiamos el buffer con el color actual
+        PAG::Renderer::getInstance().refrescar();
+
+        // Dibujamos la interfaz de ImGui encima
+        PAG::GUI::getInstance().render();
 
         // - Intercambia los buffers back y front
         glfwSwapBuffers ( window );
