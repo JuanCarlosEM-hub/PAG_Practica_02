@@ -3,6 +3,7 @@
 //
 
 #include "GUI.h"
+#include "Renderer.h"
 
 namespace PAG {
     GUI* GUI::instance = nullptr; //Inicializamos puntero
@@ -39,7 +40,17 @@ namespace PAG {
         if (ImGui::Begin("Mensajes")) {
             ImGui::SetWindowFontScale(1.0f);
 
-            //Aquí pondremos los controles o los logs de texto
+            //Obtenemos color de la ventana actual
+            float colorActual[4];
+            PAG::Renderer::getInstance().obtenerColor(colorActual);
+
+            // Selector de color con Rueda (PickerHueWheel)
+            if (ImGui::ColorPicker4("Color de fondo", colorActual, ImGuiColorEditFlags_PickerHueWheel)) {
+                // Si el usuario cambia el color, actualizamos el estado en Renderer
+                PAG::Renderer::getInstance().establecerColor(
+                    colorActual[0], colorActual[1], colorActual[2], colorActual[3]
+                );
+            }
         }
         ImGui::End();
 
