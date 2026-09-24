@@ -37,6 +37,7 @@ namespace PAG {
 
         //Definimos ventana y controles
         ImGui::SetNextWindowPos(ImVec2(10,10), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(360, 420), ImGuiCond_Once); //Tenemos que establcer el tamaño de la ventan
         if (ImGui::Begin("Mensajes")) {
             ImGui::SetWindowFontScale(1.0f);
 
