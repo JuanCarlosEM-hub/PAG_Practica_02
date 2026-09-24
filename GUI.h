@@ -23,7 +23,7 @@ namespace PAG {
 
             // Métodos principales encapsulados
             void inicializar(GLFWwindow* window);
-            void renderer();
+            void render();
             void finalizar();
     };
 }

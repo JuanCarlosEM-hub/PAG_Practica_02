@@ -27,4 +27,24 @@ namespace PAG {
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init();
     }
+
+    void GUI::render() {
+        //Preparamos el nuevo fragmento
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        //Definimos ventana y controles
+        ImGui::SetNextWindowPos(ImVec2(10,10), ImGuiCond_Once);
+        if (ImGui::Begin("Mensajes")) {
+            ImGui::SetWindowFontScale(1.0f);
+
+            //Aquí pondremos los controles o los logs de texto
+        }
+        ImGui::End();
+
+        //Renderemos ImGui sobre el viewport de OpenGL
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    }
 }
