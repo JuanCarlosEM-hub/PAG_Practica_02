@@ -32,7 +32,7 @@ void window_refresh_callback ( GLFWwindow *window )
 // del área de dibujo OpenGL.
 void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
 {
-    glViewport ( 0, 0, width, height );
+    //glViewport ( 0, 0, width, height );
     std::cout << "Resize callback called" << std::endl;
 }
 
@@ -128,7 +128,7 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
 
 int main()
 {
-    std::cout << "Starting Application PAG - Prueba 01" << std::endl;
+    std::cout << "Starting Application PAG - Prueba 02" << std::endl;
 
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) error_callback );
