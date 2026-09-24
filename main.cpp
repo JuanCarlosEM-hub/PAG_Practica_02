@@ -169,6 +169,9 @@ int main()
         return -3;
     }
 
+    // Inicializamos la clase GUI pasando el puntero a la ventana GLFW
+    PAG::GUI::getInstance().inicializar(window);
+
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, window_refresh_callback );
     glfwSetFramebufferSizeCallback ( window, framebuffer_size_callback );
