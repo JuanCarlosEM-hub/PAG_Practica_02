@@ -35,10 +35,18 @@ namespace PAG {
         return *instance;
     }
 
+    void Renderer::inicializar() {
+        // Configuración inicial del estado de OpenGL
+        glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+        glEnable(GL_DEPTH_TEST);
+    }
+
     /**
      * @brief Hacer el refresco de la escena
      */
     void Renderer::refrescar() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // refrescamos el buffer
     }
+
+
 }
