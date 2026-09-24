@@ -54,5 +54,14 @@ namespace PAG {
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
     }
-    
+
+    void GUI::procesarBotonRaton(int button, int action) {
+        ImGuiIO& io = ImGui::GetIO();
+
+        if (action == GLFW_PRESS) {
+            io.AddMouseButtonEvent(button, true);
+        }else if (action == GLFW_RELEASE) {
+            io.AddMouseButtonEvent(button, false);
+        }
+    }
 }
