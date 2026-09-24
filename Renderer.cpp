@@ -48,5 +48,8 @@ namespace PAG {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // refrescamos el buffer
     }
 
+    void Renderer::establecerViewport(int x, int y, int width, int height) {
+        glViewport(x, y, width, height);
+    }
 
 }
