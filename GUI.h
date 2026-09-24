@@ -25,6 +25,9 @@ namespace PAG {
             void inicializar(GLFWwindow* window);
             void render();
             void finalizar();
+
+            //Gestión de eventos
+            void procesarBotonRaton(int button, int action);
     };
 }
 
