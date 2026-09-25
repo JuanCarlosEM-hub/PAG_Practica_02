@@ -104,4 +104,8 @@ namespace PAG {
             io.AddMouseButtonEvent(button, false);
         }
     }
+
+    void GUI::addMensaje(const std::string &mensaje) {
+        mensajes.push_back(mensaje);
+    }
 }
