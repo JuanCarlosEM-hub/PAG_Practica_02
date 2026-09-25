@@ -8,9 +8,20 @@
 namespace PAG {
     GUI* GUI::instance = nullptr; //Inicializamos puntero
 
-    GUI::GUI() {}
-    GUI::~GUI() {}
+    /**
+     * @brief Constructor privado para evitar la instanciación directa.
+     */
+    GUI::GUI() = default;
 
+    /**
+     * @brief Destructor virtual de la clase GUI.
+     */
+    GUI::~GUI() = default;
+
+    /**
+     * @brief Consulta la instancia única de la clase GUI.
+     * @return Referencia a la instancia de GUI.
+     */
     GUI& GUI::getInstance() {
         if (!instance) {
             instance = new GUI(); //Inicialización perezosa
@@ -18,6 +29,10 @@ namespace PAG {
         return *instance;
     }
 
+    /**
+     * @brief Inicializa el contexto de Dear ImGui y sus subsistemas para GLFW y OpenGL3.
+     * @param window Puntero a la ventana nativa de GLFW.
+     */
     void GUI::inicializar(GLFWwindow* window) {
         IMGUI_CHECKVERSION(); //Comprobamos versión
         ImGui::CreateContext(); // Creamos contexto
@@ -29,6 +44,9 @@ namespace PAG {
         ImGui_ImplOpenGL3_Init();
     }
 
+    /**
+     * @brief Renderiza la ventana correspondiente al selector de color en forma de rueda.
+     */
     void GUI::selectorColorTriangular() {
         //Definimos ventana y controles
         ImGui::SetNextWindowPos(ImVec2(10,10), ImGuiCond_Once);
@@ -51,6 +69,9 @@ namespace PAG {
         ImGui::End();
     }
 
+    /**
+     * @brief Renderiza la ventana correspondiente a la consola de eventos.
+     */
     void GUI::consola() {
         ImGui::SetNextWindowPos(ImVec2(400,10), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(360, 420), ImGuiCond_Once);
@@ -81,6 +102,9 @@ namespace PAG {
         ImGui::End();
     }
 
+    /**
+     * @brief Genera y dibuja los controles de la interfaz en el fotograma actual.
+     */
     void GUI::render() {
         //Preparamos el nuevo fragmento
         ImGui_ImplOpenGL3_NewFrame();
@@ -96,6 +120,9 @@ namespace PAG {
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
+    /**
+     * @brief Libera todos los recursos asociados a Dear ImGui.
+     */
     void GUI::finalizar() {
         //Liberamos los recursos
         ImGui_ImplOpenGL3_Shutdown();
@@ -103,6 +130,11 @@ namespace PAG {
         ImGui::DestroyContext();
     }
 
+    /**
+     * @brief Procesa y reenvía los eventos de los botones del ratón a Dear ImGui.
+     * @param button Identificador del botón del ratón.
+     * @param action Estado del botón (GLFW_PRESS o GLFW_RELEASE).
+     */
     void GUI::procesarBotonRaton(int button, int action) {
         ImGuiIO& io = ImGui::GetIO();
 
@@ -113,6 +145,10 @@ namespace PAG {
         }
     }
 
+    /**
+     * @brief Añade una nueva cadena de texto al log de la consola interna de la interfaz.
+     * @param mensaje Cadena de texto a mostrar en la consola.
+     */
     void GUI::addMensaje(const std::string &mensaje) {
         mensajes.push_back(mensaje);
     }
