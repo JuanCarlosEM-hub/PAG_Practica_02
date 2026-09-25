@@ -7,6 +7,7 @@
 
 #include "GUI.h"
 #include "Renderer.h"
+#include <algorithm>
 
 namespace PAG {
     GUI* GUI::instance = nullptr; //Inicializamos puntero
@@ -154,5 +155,34 @@ namespace PAG {
      */
     void GUI::addMensaje(const std::string &mensaje) {
         mensajes.push_back(mensaje);
+    }
+
+    // LISTENER
+
+    /**
+     * @brief Registra un nuevo observador en la lista.
+     * @param listener Puntero al objeto que implementa la interfaz Listener.
+     */
+    void GUI::addListener(Listener* listener) {
+        if (listener) {
+            listeners.push_back(listener);
+        }
+    }
+
+    /**
+     * @brief Elimina un observador de la lista.
+     * @param listener Puntero al objeto a eliminar.
+     */
+    void GUI::removeListener(Listener* listener) {
+        listeners.erase(std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
+    }
+
+    /**
+     * @brief Notifica a todos los observadores registrados que el color ha cambiado.
+     */
+    void GUI::notificarObservadoresColor() {
+        for (auto* listener : listeners) {
+            listener->notificarCambioColor(colorActual[0], colorActual[1], colorActual[2], colorActual[3]);
+        }
     }
 }

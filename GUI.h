@@ -29,6 +29,8 @@ namespace PAG {
             std::vector<std::string> mensajes; ///< Vector de almacenamiento de mensajes para la consola interna.
             bool autoScroll = true; ///< Booleano para controlar el desplazamiento automático de la consola.
 
+            float colorActual[4] = {0.6f, 0.6f, 0.6f, 1.0f}; ///< Estado local del color de fondo.
+
             // Ventanas
             void selectorColorTriangular();
             void consola();
