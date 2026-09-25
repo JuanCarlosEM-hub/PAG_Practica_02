@@ -15,6 +15,7 @@
 #include <vector>
 #include <GLFW/glfw3.h>
 
+#include "Listener.h"
 namespace PAG {
     /**
      * @brief Gestiona la interfaz gráfica y actúa como Sujeto en el patrón Observador.
