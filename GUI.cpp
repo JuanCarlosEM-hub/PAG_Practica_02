@@ -6,7 +6,6 @@
  */
 
 #include "GUI.h"
-#include "Renderer.h"
 #include <algorithm>
 
 namespace PAG {
@@ -58,16 +57,9 @@ namespace PAG {
         if (ImGui::Begin("COLOR DE FONDO")) {
             ImGui::SetWindowFontScale(1.0f);
 
-            //Obtenemos color de la ventana actual
-            float colorActual[4];
-            PAG::Renderer::getInstance().obtenerColor(colorActual);
-
-            // Selector de color con Rueda (PickerHueWheel)
+            // Si el usuario modifica la rueda de color, notificamos a los observadores
             if (ImGui::ColorPicker4("Color de fondo", colorActual, ImGuiColorEditFlags_PickerHueWheel)) {
-                // Si el usuario cambia el color, actualizamos el estado en Renderer
-                PAG::Renderer::getInstance().establecerColor(
-                    colorActual[0], colorActual[1], colorActual[2], colorActual[3]
-                );
+                notificarObservadoresColor();
             }
         }
         ImGui::End();
