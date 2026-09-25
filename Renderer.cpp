@@ -93,4 +93,13 @@ namespace PAG {
                   << "GLSL:         " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     }
 
+    /**
+     * @brief Implementación del callback del patrón Observador.
+     * Recibe la notificación cuando se cambia el color desde la GUI.
+     */
+    void Renderer::notificarCambioColor(float r, float g, float b, float a) {
+        // Aplicamos el cambio de color al recibir la notificación
+        establecerColor(r, g, b, a);
+    }
+
 }
