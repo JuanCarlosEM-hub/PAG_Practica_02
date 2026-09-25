@@ -5,9 +5,10 @@
 #ifndef PR02_LISTENER_H
 #define PR02_LISTENER_H
 
-
-class Listener {
-};
+namespace PAG {
+    class Listener {
+    };
+}
 
 
 #endif //PR02_LISTENER_H
