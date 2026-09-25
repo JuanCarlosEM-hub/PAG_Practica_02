@@ -4,32 +4,38 @@
 #include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Renderer.h"
+#include "GUI.h"
+
 // - Esta función callback será llamada cuando GLFW produzca algún error
 void error_callback ( int errno, const char* desc )
 {
     std::string aux (desc);
     std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
+    // Voy a dejar esta llamada por la consola tradicional por si el error produce un bloqueo
 }
 
 // - Esta función callback será llamada cada vez que el área de dibujo
 // OpenGL deba ser redibujada.
 void window_refresh_callback ( GLFWwindow *window )
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // - GLFW usa un doble buffer para que no haya parpadeo. Esta orden
-    // intercambia el buffer back (que se ha estado dibujando) por el
-    // que se mostraba hasta ahora front. Debe ser la última orden de
-    // este callback
+    //Llamamos a la instancia y refrescamos
+    PAG::Renderer::getInstance().refrescar();
+
+    //Dibujamos la interfaz de usuario
+    PAG::GUI::getInstance().render();
+
     glfwSwapBuffers ( window );
-    std::cout << "Refresh callback called" << std::endl;
+    PAG::GUI::getInstance().addMensaje("Refresh callback called");
 }
 
 // - Esta función callback será llamada cada vez que se cambie el tamaño
 // del área de dibujo OpenGL.
 void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
 {
-    glViewport ( 0, 0, width, height );
-    std::cout << "Resize callback called" << std::endl;
+    //glViewport ( 0, 0, width, height );
+    PAG::Renderer::getInstance().establecerViewport(0,0,width,height);
+    PAG::GUI::getInstance().addMensaje("Resize callback called");
 }
 
 // - Esta función callback será llamada cada vez que se pulse una tecla
@@ -40,7 +46,7 @@ void key_callback ( GLFWwindow *window, int key, int scancode, int action, int m
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
-    std::cout << "Key callback called" << std::endl;
+    PAG::GUI::getInstance().addMensaje("Key callback called");
 }
 
 // - Esta función callback será llamada cada vez que se pulse algún botón
@@ -49,42 +55,26 @@ void mouse_button_callback ( GLFWwindow *window, int button, int action, int mod
 {
     if ( action == GLFW_PRESS )
     {
-        std::cout << "Pulsado el botón: " << button << std::endl;
+        PAG::GUI::getInstance().addMensaje("Pulsado el boton:" + std::to_string(button));
     }
     else if ( action == GLFW_RELEASE )
     {
-        std::cout << "Soltado el botón: " << button << std::endl;
+        PAG::GUI::getInstance().addMensaje("Soltando el boton:" + std::to_string(button));
     }
+
+    // Notificamo del evento a GUI
+    PAG::GUI::getInstance().procesarBotonRaton(button, action);
 }
 
 // - Esta función callback será llamada cada vez que se mueva la rueda
 // del ratón sobre el área de dibujo OpenGL.
 void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
 {
-    std::cout << "Movida la rueda del ratón " << xoffset
-    //Esta salida de consola no tiene sentido puesto que la rueda solo tiene sentido vertical, a no ser que usemos el mousepad
-              << " Unidades en horizontal y " << yoffset
-              << " unidades en vertical" << std::endl;
-
+    PAG::GUI::getInstance().addMensaje("Moviemiento rueda del raton: X = "+std::to_string(xoffset)+" Y = "+std::to_string(yoffset)+"");
     // Arreglo para guardar los componentes (R, G, B, A)
     float colorActual[4];
 
-    // Consulta a OpenGL el color de borrado actual
-    glGetFloatv(GL_COLOR_CLEAR_VALUE, colorActual);
-
-    /*
-     * Esta función es correcta, no obstante, como cambiamos todos los tonos por igual solo se ve un cambio de grises
-     * Vamos a "complicar" un poco más el ejercico buscando aleaoriedad en los colores y teniendo en cuenta el sentido de giro
-    for ( int i = 0; i < 3; ++i)
-    {
-        if (colorActual[i] >=0.9)
-        {
-            colorActual[i] =0.0;
-        }else
-        {
-            colorActual[i] +=0.1;
-        }
-    }*/
+    PAG::Renderer::getInstance().obtenerColor(colorActual);
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -104,7 +94,7 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
         // Sin comprobar, modificamos el elemento del array
         // Para que el color se vea distinto, multiplicamos la posicion del elemento por el sentido de rotación. De este modo algunos elementos suman y otros restan
         // Aclarar, que aunque algunos sumen y otros resten, siempre suman o restan los mismo respectivamente el eje de la rueda
-        colorActual[i] = valor_sum_nuevo_color * i *yoffset;
+        colorActual[i] += valor_sum_nuevo_color * i *yoffset;
 
         //Comprobamos si se sale de rango por el límite superior
         if ( colorActual[i] > 1.0 ) {
@@ -115,13 +105,15 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
         }
     }
     // Aplicamos en el fondo
-    glClearColor(colorActual[0], colorActual[1], colorActual[2], colorActual[3]);
+    PAG::Renderer::getInstance().establecerColor(
+        colorActual[0], colorActual[1], colorActual[2], colorActual[3]
+    );
 
 }
 
 int main()
 {
-    std::cout << "Starting Application PAG - Prueba 01" << std::endl;
+    std::cout << "Starting Application PAG - Prueba 02" << std::endl;
 
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) error_callback );
@@ -168,6 +160,11 @@ int main()
         return -3;
     }
 
+    // Inicializamos la clase GUI pasando el puntero a la ventana GLFW
+    PAG::GUI::getInstance().inicializar(window);
+
+    PAG::Renderer::getInstance().inicializar();
+
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, window_refresh_callback );
     glfwSetFramebufferSizeCallback ( window, framebuffer_size_callback );
@@ -175,21 +172,16 @@ int main()
     glfwSetMouseButtonCallback ( window, mouse_button_callback );
     glfwSetScrollCallback ( window, scroll_callback );
 
-    // - Interrogamos a OpenGL para que nos informe de las propiedades del contexto 3D construido
-    std::cout << glGetString ( GL_RENDERER ) << std::endl
-              << glGetString ( GL_VENDOR ) << std::endl
-              << glGetString ( GL_VERSION ) << std::endl
-              << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl;
-
-    // - Configuración inicial del estado de OpenGL
-    glClearColor ( 0.6f, 0.6f, 0.6f, 1.0f );
-    glEnable ( GL_DEPTH_TEST );
+    PAG::Renderer::getInstance().mostrarInformacionGL();
 
     // - Ciclo de eventos principal de la aplicación (se unifica en un único bucle)
     while ( !glfwWindowShouldClose ( window ) )
     {
-        // - Borra los buffers (color y profundidad)
-        glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        // Limpiamos el buffer con el color actual
+        PAG::Renderer::getInstance().refrescar();
+
+        // Dibujamos la interfaz de ImGui encima
+        PAG::GUI::getInstance().render();
 
         // - Intercambia los buffers back y front
         glfwSwapBuffers ( window );
