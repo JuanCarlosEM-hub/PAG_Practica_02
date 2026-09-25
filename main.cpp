@@ -74,6 +74,7 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
               << " Unidades en horizontal y " << yoffset
               << " unidades en vertical" << std::endl;
 
+
     // Arreglo para guardar los componentes (R, G, B, A)
     float colorActual[4];
 
