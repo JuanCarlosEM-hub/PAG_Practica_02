@@ -7,6 +7,8 @@
 
 namespace PAG {
     class Listener {
+        public:
+            virtual ~Listener() = default;
     };
 }
 
