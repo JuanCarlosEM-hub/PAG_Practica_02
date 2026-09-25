@@ -32,6 +32,10 @@ namespace PAG {
             // Ventanas
             void selectorColorTriangular();
             void consola();
+
+            // Notificar observadores
+            std::vector<Listener*> listeners;  ///< Lista de observadores suscritos a los eventos de la GUI.
+            void notificarObservadoresColor();
         public:
             virtual ~GUI();
             static GUI& getInstance();
@@ -46,6 +50,10 @@ namespace PAG {
 
             //Añadir mensaje a ala consola
             void addMensaje(const std::string& mensaje);
+
+            //Listener
+            void addListener(Listener* listener);
+            void removeListener(Listener* listener);
     };
 }
 
