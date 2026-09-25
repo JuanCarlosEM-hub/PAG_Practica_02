@@ -8,6 +8,8 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+#include <string>
+#include <vector>
 #include <GLFW/glfw3.h>
 
 namespace PAG {
@@ -16,6 +18,9 @@ namespace PAG {
             static GUI* instance; ///< Instancia Única
             GUI();
 
+            // Almacén de mensajes y estado del scroll
+            std::vector<std::string> mensajes;
+            bool autoScroll = true;
         public:
             virtual ~GUI();
             static GUI& getInstance();

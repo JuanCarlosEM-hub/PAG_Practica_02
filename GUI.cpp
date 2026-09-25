@@ -55,6 +55,34 @@ namespace PAG {
         }
         ImGui::End();
 
+        ImGui::SetNextWindowPos(ImVec2(400,10), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(360, 420), ImGuiCond_Once);
+        if (ImGui::Begin("CONSOLA")) {
+
+            //Añadimos un botón para limpiar la consola
+            if (ImGui::Button("Limpiar")) {
+                mensajes.clear();
+            }
+
+            ImGui::SameLine();
+            ImGui::Checkbox("Auto-scroll", &autoScroll);
+            ImGui::Separator();
+
+            ImGui::BeginChild("ScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+
+            for (const auto& msg : mensajes) {
+                ImGui::TextUnformatted(msg.c_str());
+            }
+
+            // Desplazar automáticamente hacia abajo si hay nuevos mensajes
+            if (autoScroll && ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {
+                ImGui::SetScrollHereY(1.0f);
+            }
+            ImGui::EndChild();
+        }
+
+        ImGui::End();
+
         //Renderemos ImGui sobre el viewport de OpenGL
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
