@@ -29,12 +29,7 @@ namespace PAG {
         ImGui_ImplOpenGL3_Init();
     }
 
-    void GUI::render() {
-        //Preparamos el nuevo fragmento
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
+    void GUI::selectorColorTriangular() {
         //Definimos ventana y controles
         ImGui::SetNextWindowPos(ImVec2(10,10), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(360, 420), ImGuiCond_Once); //Tenemos que establcer el tamaño de la ventan
@@ -54,6 +49,15 @@ namespace PAG {
             }
         }
         ImGui::End();
+    }
+
+    void GUI::render() {
+        //Preparamos el nuevo fragmento
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        selectorColorTriangular();
 
         ImGui::SetNextWindowPos(ImVec2(400,10), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(360, 420), ImGuiCond_Once);

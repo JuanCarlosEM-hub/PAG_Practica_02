@@ -21,6 +21,9 @@ namespace PAG {
             // Almacén de mensajes y estado del scroll
             std::vector<std::string> mensajes;
             bool autoScroll = true;
+
+            // Ventanas
+            void selectorColorTriangular();
         public:
             virtual ~GUI();
             static GUI& getInstance();
