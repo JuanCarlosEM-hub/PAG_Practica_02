@@ -1,9 +1,12 @@
-//
-// Created by Juank on 23/09/2026.
-//
+/**
+* @file GUI.h
+ * @author Juan Carlos Enríquez Muñoz
+ * @date 23/09/2026
+ * @brief Declaración de la clase GUI para la gestión de la interfaz con Dear ImGui (Sujeto/Publicador).
+ */
 
 #include "GUI.h"
-#include "Renderer.h"
+#include <algorithm>
 
 namespace PAG {
     GUI* GUI::instance = nullptr; //Inicializamos puntero
@@ -54,16 +57,9 @@ namespace PAG {
         if (ImGui::Begin("COLOR DE FONDO")) {
             ImGui::SetWindowFontScale(1.0f);
 
-            //Obtenemos color de la ventana actual
-            float colorActual[4];
-            PAG::Renderer::getInstance().obtenerColor(colorActual);
-
-            // Selector de color con Rueda (PickerHueWheel)
+            // Si el usuario modifica la rueda de color, notificamos a los observadores
             if (ImGui::ColorPicker4("Color de fondo", colorActual, ImGuiColorEditFlags_PickerHueWheel)) {
-                // Si el usuario cambia el color, actualizamos el estado en Renderer
-                PAG::Renderer::getInstance().establecerColor(
-                    colorActual[0], colorActual[1], colorActual[2], colorActual[3]
-                );
+                notificarObservadoresColor();
             }
         }
         ImGui::End();
@@ -151,5 +147,34 @@ namespace PAG {
      */
     void GUI::addMensaje(const std::string &mensaje) {
         mensajes.push_back(mensaje);
+    }
+
+    // LISTENER
+
+    /**
+     * @brief Registra un nuevo observador en la lista.
+     * @param listener Puntero al objeto que implementa la interfaz Listener.
+     */
+    void GUI::addListener(Listener* listener) {
+        if (listener) {
+            listeners.push_back(listener);
+        }
+    }
+
+    /**
+     * @brief Elimina un observador de la lista.
+     * @param listener Puntero al objeto a eliminar.
+     */
+    void GUI::removeListener(Listener* listener) {
+        listeners.erase(std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
+    }
+
+    /**
+     * @brief Notifica a todos los observadores registrados que el color ha cambiado.
+     */
+    void GUI::notificarObservadoresColor() {
+        for (auto* listener : listeners) {
+            listener->notificarCambioColor(colorActual[0], colorActual[1], colorActual[2], colorActual[3]);
+        }
     }
 }

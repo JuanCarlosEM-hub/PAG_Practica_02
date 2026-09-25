@@ -7,10 +7,13 @@
  * @brief Implementación de la clase Renderer
  */
 
+#include <glad/glad.h>
+
 #include "Renderer.h"
+#include "GUI.h"
 
 #include <iostream>
-#include <glad/glad.h>
+
 
 namespace PAG {
 
@@ -38,9 +41,11 @@ namespace PAG {
     }
 
     /**
-     * @brief Configura el estado inicial de OpenGL (color de fondo por defecto y test de profundidad).
+     * @brief Configura el estado inicial de OpenGL (color de fondo por defecto y test de profundidad) y oregistramos el observador.
      */
     void Renderer::inicializar() {
+        //Añadimos el escuchador a la lista de GUI
+        PAG::GUI::getInstance().addListener(this);
         // Configuración inicial del estado de OpenGL
         glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
         glEnable(GL_DEPTH_TEST);
@@ -91,6 +96,15 @@ namespace PAG {
                   << "Proveedor:    " << glGetString(GL_VENDOR) << std::endl
                   << "Versión GL:   " << glGetString(GL_VERSION) << std::endl
                   << "GLSL:         " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    }
+
+    /**
+     * @brief Implementación del callback del patrón Observador.
+     * Recibe la notificación cuando se cambia el color desde la GUI.
+     */
+    void Renderer::notificarCambioColor(float r, float g, float b, float a) {
+        // Aplicamos el cambio de color al recibir la notificación
+        establecerColor(r, g, b, a);
     }
 
 }

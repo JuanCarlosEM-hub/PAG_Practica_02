@@ -163,6 +163,8 @@ int main()
     // Inicializamos la clase GUI pasando el puntero a la ventana GLFW
     PAG::GUI::getInstance().inicializar(window);
 
+    PAG::Renderer::getInstance().inicializar();
+
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, window_refresh_callback );
     glfwSetFramebufferSizeCallback ( window, framebuffer_size_callback );
@@ -170,15 +172,7 @@ int main()
     glfwSetMouseButtonCallback ( window, mouse_button_callback );
     glfwSetScrollCallback ( window, scroll_callback );
 
-    // - Interrogamos a OpenGL para que nos informe de las propiedades del contexto 3D construido
-    std::cout << glGetString ( GL_RENDERER ) << std::endl
-              << glGetString ( GL_VENDOR ) << std::endl
-              << glGetString ( GL_VERSION ) << std::endl
-              << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl;
-
-    // - Configuración inicial del estado de OpenGL
-    glClearColor ( 0.6f, 0.6f, 0.6f, 1.0f );
-    glEnable ( GL_DEPTH_TEST );
+    PAG::Renderer::getInstance().mostrarInformacionGL();
 
     // - Ciclo de eventos principal de la aplicación (se unifica en un único bucle)
     while ( !glfwWindowShouldClose ( window ) )
