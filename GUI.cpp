@@ -51,14 +51,7 @@ namespace PAG {
         ImGui::End();
     }
 
-    void GUI::render() {
-        //Preparamos el nuevo fragmento
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        selectorColorTriangular();
-
+    void GUI::consola() {
         ImGui::SetNextWindowPos(ImVec2(400,10), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(360, 420), ImGuiCond_Once);
         if (ImGui::Begin("CONSOLA")) {
@@ -86,6 +79,17 @@ namespace PAG {
         }
 
         ImGui::End();
+    }
+
+    void GUI::render() {
+        //Preparamos el nuevo fragmento
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        selectorColorTriangular();
+
+        consola();
 
         //Renderemos ImGui sobre el viewport de OpenGL
         ImGui::Render();

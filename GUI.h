@@ -24,6 +24,7 @@ namespace PAG {
 
             // Ventanas
             void selectorColorTriangular();
+            void consola();
         public:
             virtual ~GUI();
             static GUI& getInstance();
