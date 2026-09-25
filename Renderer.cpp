@@ -8,6 +8,7 @@
  */
 
 #include "Renderer.h"
+#include "GUI.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -38,9 +39,11 @@ namespace PAG {
     }
 
     /**
-     * @brief Configura el estado inicial de OpenGL (color de fondo por defecto y test de profundidad).
+     * @brief Configura el estado inicial de OpenGL (color de fondo por defecto y test de profundidad) y oregistramos el observador.
      */
     void Renderer::inicializar() {
+        //Añadimos el escuchador a la lista de GUI
+        PAG::GUI::getInstance().addListener(this);
         // Configuración inicial del estado de OpenGL
         glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
         glEnable(GL_DEPTH_TEST);
