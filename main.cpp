@@ -12,6 +12,7 @@ void error_callback ( int errno, const char* desc )
 {
     std::string aux (desc);
     std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
+    // Voy a dejar esta llamada por la consola tradicional por si el error produce un bloqueo
 }
 
 // - Esta función callback será llamada cada vez que el área de dibujo
@@ -25,7 +26,7 @@ void window_refresh_callback ( GLFWwindow *window )
     PAG::GUI::getInstance().render();
 
     glfwSwapBuffers ( window );
-    std::cout << "Refresh callback called" << std::endl;
+    PAG::GUI::getInstance().addMensaje("Refresh callback called");
 }
 
 // - Esta función callback será llamada cada vez que se cambie el tamaño
@@ -34,7 +35,7 @@ void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
 {
     //glViewport ( 0, 0, width, height );
     PAG::Renderer::getInstance().establecerViewport(0,0,width,height);
-    std::cout << "Resize callback called" << std::endl;
+    PAG::GUI::getInstance().addMensaje("Resize callback called");
 }
 
 // - Esta función callback será llamada cada vez que se pulse una tecla
@@ -45,7 +46,7 @@ void key_callback ( GLFWwindow *window, int key, int scancode, int action, int m
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
-    std::cout << "Key callback called" << std::endl;
+    PAG::GUI::getInstance().addMensaje("Key callback called");
 }
 
 // - Esta función callback será llamada cada vez que se pulse algún botón
@@ -54,11 +55,11 @@ void mouse_button_callback ( GLFWwindow *window, int button, int action, int mod
 {
     if ( action == GLFW_PRESS )
     {
-        std::cout << "Pulsado el botón: " << button << std::endl;
+        PAG::GUI::getInstance().addMensaje("Pulsado el boton:" + std::to_string(button));
     }
     else if ( action == GLFW_RELEASE )
     {
-        std::cout << "Soltado el botón: " << button << std::endl;
+        PAG::GUI::getInstance().addMensaje("Soltando el boton:" + std::to_string(button));
     }
 
     // Notificamo del evento a GUI
@@ -69,12 +70,7 @@ void mouse_button_callback ( GLFWwindow *window, int button, int action, int mod
 // del ratón sobre el área de dibujo OpenGL.
 void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
 {
-    std::cout << "Movida la rueda del ratón " << xoffset
-    //Esta salida de consola no tiene sentido puesto que la rueda solo tiene sentido vertical, a no ser que usemos el mousepad
-              << " Unidades en horizontal y " << yoffset
-              << " unidades en vertical" << std::endl;
-
-
+    PAG::GUI::getInstance().addMensaje("Moviemiento rueda del raton: X = "+std::to_string(xoffset)+" Y = "+std::to_string(yoffset)+"");
     // Arreglo para guardar los componentes (R, G, B, A)
     float colorActual[4];
 
