@@ -7,11 +7,13 @@
  * @brief Implementación de la clase Renderer
  */
 
+#include <glad/glad.h>
+
 #include "Renderer.h"
 #include "GUI.h"
 
 #include <iostream>
-#include <glad/glad.h>
+
 
 namespace PAG {
 
