@@ -32,6 +32,9 @@ namespace PAG {
 
             //Gestión de eventos
             void procesarBotonRaton(int button, int action);
+
+            //Añadir mensaje a ala consola
+            void addMensaje(const std::string& mensaje);
     };
 }
 
