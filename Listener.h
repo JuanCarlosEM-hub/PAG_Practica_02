@@ -9,6 +9,8 @@ namespace PAG {
     class Listener {
         public:
             virtual ~Listener() = default;
+
+            virtual void notificarCambioColor(float r, float g, float b, float a) = 0;
     };
 }
 
